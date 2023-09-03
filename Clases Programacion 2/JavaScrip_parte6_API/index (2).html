@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="guardarClientes()">Guardar Cliente</button>
+  <ul id="listaClientes"></ul>
+  <script>
+    cargarClientes();
+
+    async function cargarClientes() {
+      const listaClientes = document.getElementById("listaClientes");
+
+      await fetch(`http://localhost:3000/data`)
+        .then((response) => {
+          if (!response.ok) {
+            throw Error(response.status);
+          }
+          return response;
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+
+          listaClientes.innerHTML = ""; // Limpiar la lista existente
+
+          data.forEach((element) => {
+            const li = document.createElement("li");
+            li.textContent = element.nombre;
+            listaClientes.appendChild(li);
+          });
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+
+    async function guardarClientes() {
+      const dato = {
+        "id": 17,
+        "nombre": "Test",
+        "apellido": "García",
+        "edad": 32,
+        "ciudad": "Buenos Aires"
+      };
+
+      await fetch(`http://localhost:3000/data`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dato),
+      })
+        .then((response) => {
+          console.log("Response:", response);
+        })
+        .then((data) => {
+          console.log("Respuesta:", data);
+          cargarClientes(); // Actualizar la lista de clientes después de guardar
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  </script>
+</body>
+</html>

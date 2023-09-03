@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recuperatorio</title>
+  <link rel="stylesheet" href="estilos.css">
+  </head>
+  <body>
+    <h3>Recuperatorio</h3>
+    <h4>Aplicacion OfiExpress</h4>
+    <h5 id="fecha">Ventas de -----</h5>
+
+    <div>
+      <h5>Agregar Ventas de Adhesivos</h5>
+      <label for="">Codigo: </label><input id="codigoinput" type="text" />
+      <label for="">Descripcion: </label>
+      <input id="descripcioninput" type="text" /> <br /><br />
+      <label for="">Precio:</label>
+
+      <input id="precioinput" type="number" />
+      <label for="">Cantidad Vendida: </label>
+      <input id="cantidadinput" type="number" />
+      <button onclick="agregarInfo()">Agregar</button>
+    </div>
+    <br />
+    <button onclick="ocultarMostrarTabla()">Ocultar/Mostrar Tabla</button>
+
+    <div id="tablaContainer"></div>
+
+    <div>
+      <h4>Totales</h4>
+      <p id="cantidadderegistros"></p>
+      <p id="totalegeneral"></p>
+      <p id="articulomasvendido"></p>
+    </div>
+
+
+<script src="codigo.js"></script>
+  
+  </body>
+</html>

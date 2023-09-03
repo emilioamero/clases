@@ -1,0 +1,32 @@
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans&family=Rubik+Pixels&display=swap"
+      rel="stylesheet"
+    />
+
+
+
+        <style>
+      * {
+        font-family: "PT Sans", sans-serif;
+        font-family: "Rubik Pixels", cursive;
+        font-size: 48px;
+      }
+    </style>
+
+
+    ----------------
+
+local
+
+
+ @font-face {
+    font-family: "Mystery Quest";
+    src: url("./fuentes/MysteryQuest-Regular.ttf");
+}
+
+* {
+    font-family: "Mystery Quest", cursive;
+    font-size: 150%;
+}

@@ -1,0 +1,19 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.estilostabla {
+  border: solid 1px gray;
+  font-size: 12px;
+}
+
+th,
+tr,
+td {
+  border: solid 1px black;
+}
+
+.categoriaespecial {
+  color: blue;
+  font-weight: bold;
+}

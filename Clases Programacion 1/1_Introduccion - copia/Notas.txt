@@ -1,0 +1,42 @@
+Temas 
+- Presentacion de la Materia, 
+    - aplicacion conocimientos de algoritmos y estructuras de datos
+- De Pseudocodigo a Codigo
+- Java Scrip que es, donde se usa 
+- Consola del navegador
+- Herramienta VisualstudioCode para escribir codigo (hay muchas mas, IDE )
+- Plugin recomendado live server 
+- HTML CSS y JS Relacion y diferencias 
+- Palabras reservadas 
+- Vinculacion HTML y JavaScrip
+    - Etiqueta  <scrip></scrip>
+    - Archivo Externo
+    - Hola MUNDO con consola, writeline, alert
+- Orden de ejecucion de los scrips dentro del html
+    - Scrip en head, body
+    - Archivo Externo opcion defer 
+- Declaracion de variables var let const, diferenciaas y usos
+- declaracion string "" '' ``, number, boolean, date, array numerico, objeto, null, undefined
+- Tipeof, saber que tipo es una variable
+- Uso Esricto "use strict" para que se usa.
+ 
+
+ acnto itliani
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------
+-escribir a sol
+-publicar material aula virtual
+-hacer guia

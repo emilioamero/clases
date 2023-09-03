@@ -1,0 +1,221 @@
+
+DOM
+Estructura de objetos HTML en un documento web
+
+Cuando comenzamos en el mundo del desarrollo web, normalmente comenzamos por aprender a escribir etiquetado o marcado HTML y además, añadir estilos CSS para darle color, forma y algo de interacción. Sin embargo, a medida que avanzamos, nos damos cuenta que en cierta forma podemos estar bastante limitados.
+Si únicamente utilizamos HTML/CSS, sólo podremos crear páginas «estáticas» (sin demasiada personalización por parte del usuario), pero si añadimos Javascript, podremos crear páginas «dinámicas». Cuando hablamos de páginas dinámicas, nos referimos a que podemos dotar de la potencia y flexibilidad que nos da un lenguaje de programación para crear documentos y páginas mucho más ricas, que brinden una experiencia más completa y con el que se puedan automatizar un gran abanico de tareas y acciones.
+¿Qué es el DOM?
+
+
+Las siglas DOM significan Document Object Model, o lo que es lo mismo, la estructura del documento HTML. Una página HTML está formada por múltiples etiquetas HTML, anidadas una dentro de otra, formando un árbol de etiquetas relacionadas entre sí, que se denomina árbol DOM (o simplemente DOM).
+En Javascript, cuando nos referimos al DOM nos referimos a esta estructura, que podemos modificar de forma dinámica desde Javascript, añadiendo nuevas etiquetas, modificando o eliminando otras, cambiando sus atributos HTML, añadiendo clases, cambiando el contenido de texto, etc...
+Al estar "amparado" por un lenguaje de programación, todas estas tareas se pueden automatizar, incluso indicando que se realicen cuando el usuario haga acciones determinadas, como por ejemplo: pulsar un botón, mover el ratón, hacer click en una parte del documento, escribir un texto, etc...
+
+El objeto document
+
+En Javascript, la forma de acceder al DOM es a través de un objeto llamado document, que representa el árbol DOM de la página o pestaña del navegador donde nos encontramos. En su interior pueden existir varios tipos de elementos, pero principalmente serán element o node :
+
+element:    no es más que la representación genérica de una etiqueta: HTMLElement.
+node:    es una unidad más básica, la cuál puede ser o un nodo de texto.
+
+---------
+
+Seleccionar elementos del DOM
+
+Si nos encontramos en nuestro código Javascript y queremos hacer modificaciones en un elemento de la página HTML, lo primero que debemos hacer es buscar dicho elemento. Para ello, se suele intentar identificar el elemento a través de alguno de sus atributos más utilizados, generalmente el id o la clase.
+
+Métodos tradicionales
+
+Existen varios métodos, los más clásicos y tradicionales para realizar búsquedas de elementos en el documento. Observa que si lo que buscas es un elemento específico, lo mejor sería utilizar getElementById(), en caso contrario, si utilizamos uno de los 3 siguientes métodos, nos devolverá un array donde tendremos que elegir el elemento en cuestión posteriormente:
+
+Elemento especifico:
+ .getElementById(id) 	Busca el elemento HTML con el id id. Si no, devuelve null.
+
+Devuelve un Array:
+.getElementsByClassName(class) 	Busca elementos con la clase class. Si no, devuelve [].
+.getElementsByName(name) 	Busca elementos con atributo name name. Si no, devuelve [].
+.getElementsByTagName(tag) 	Busca elementos tag. Si no encuentra ninguno, devuelve [].
+
+Estos son los 4 métodos tradicionales de Javascript para manipular el DOM. Se denominan tradicionales porque son los que existen en Javascript desde versiones más antiguas. Dichos métodos te permiten buscar elementos en la página dependiendo de los atributos id, class, name o de la propia etiqueta, respectivamente.
+
+getElementById()
+
+El primer método, .getElementById(id) busca un elemento HTML con el id especificado en id por parámetro. En principio, un documento HTML bien construído no debería tener más de un elemento con el mismo id, por lo tanto, este método devolverá siempre un solo elemento:
+
+const page = document.getElementById("page");   // <div id="page"></div>
+
+    Recuerda que en el caso de no encontrar el elemento indicado, devolverá null.
+
+getElementsByClassName()
+
+Por otro lado, el método .getElementsByClassName(class) permite buscar los elementos con la clase especificada en class. Es importante darse cuenta del matiz de que el metodo tiene getElements en plural, y esto es porque al devolver clases (al contrario que los id) se pueden repetir, y por lo tanto, devolvernos varios elementos, no sólo uno.
+
+const items = document.getElementsByClassName("item");  // [div, div, div]
+
+console.log(items[0]);      // Primer item encontrado: <div class="item"></div>
+console.log(items.length);  // 3
+
+Los métodos getElementsByName(name) y getElementsByTagName(tag), salvo que se encargan de buscar elementos HTML por su atributo name o por su propia etiqueta de elemento HTML, respectivamente:
+
+// Obtiene todos los elementos con atributo name="nickname"
+const nicknames = document.getElementsByName("nickname");
+
+// Obtiene todos los elementos <div> de la página
+const divs = document.getElementsByTagName("div");
+
+
+
+
+            OJO: Aunque en esta documentación se hace referencia a array , realmente los métodos de búsqueda generalmente devuelven un tipo de dato HTMLCollection o NodeList, que aunque actúan de forma muy similar a un array, no son arrays, y por lo tanto pueden carecer de algunos métodos, como por ejemplo .forEach().
+
+    Recuerda que el primer método tiene getElement en singular y el resto getElements en plural. Ten en cuenta ese detalle para no olvidarte que uno devuelve un sólo elemento y el resto una lista de ellos.
+
+Métodos modernos
+
+Aunque podemos utilizar los métodos tradicionales que acabamos de ver, actualmente tenemos a nuestra disposición dos nuevos métodos de búsqueda de elementos que son mucho más cómodos y prácticos si conocemos y dominamos los selectores CSS. Es el caso de los métodos .querySelector() y .querySelectorAll():
+
+Devuelve un elemento
+.querySelector(sel) 	Busca el primer elemento que coincide con el selector CSS sel. Si no, null.
+Devuelve un array
+.querySelectorAll(sel) 	Busca todos los elementos que coinciden con el selector CSS sel. Si no, [].
+
+Con estos dos métodos podemos realizar todo lo que hacíamos con los métodos tradicionales mencionados anteriormente e incluso muchas más cosas (en menos código), ya que son muy flexibles y potentes gracias a los selectores CSS.
+
+querySelector()
+
+El primero, .querySelector(selector) devuelve el primer elemento que encuentra que encaja con el selector CSS suministrado en selector. Al igual que su «equivalente» .getElementById(), devuelve un solo elemento y en caso de no coincidir con ninguno, devuelve :
+
+const page = document.querySelector("#page");               // <div id="page"></div>
+const info = document.querySelector(".main .info");         // <div class="info"></div>
+
+Lo interesante de este método, es que al permitir suministrarle un selector CSS básico o incluso un selector CSS avanzado, se vuelve un sistema mucho más potente.
+
+El primer ejemplo es equivalente a utilizar un .getElementById(), sólo que en la versión de .querySelector() indicamos por parámetro un selector y en el primero le pasamos un simple string . Observa que estamos indicando un # porque se trata de un id.
+
+En el segundo ejemplo, estamos recuperando el primer elemento con clase info que se encuentre dentro de otro elemento con clase main. Eso podría realizarse con los métodos tradicionales, pero sería menos directo ya que tendríamos que realizar varias llamadas, con .querySelector() se hace directamente con sólo una.
+
+---
+
+querySelectorAll()
+
+Por otro lado, el método .querySelectorAll() realiza una búsqueda de elementos como lo hace el anterior, sólo que como podremos intuir por ese All(), devuelve un array con todos los elementos que coinciden con el selector CSS:
+
+// Obtiene todos los elementos con clase "info"
+const infos = document.querySelectorAll(".info");
+
+// Obtiene todos los elementos con atributo name="nickname"
+const nicknames = document.querySelectorAll('[name="nickname"]');
+
+// Obtiene todos los elementos <div> de la página HTML
+const divs = document.querySelectorAll("div");
+
+En este caso, recuerda que .querySelectorAll() siempre nos devolverá un array de elementos. Depende de los elementos que encuentre mediante el selector , nos devolverá un array de 0 elementos o de 1, 2 o más elementos.
+
+
+Al realizar una búsqueda de elementos y guardarlos en una variable, podemos realizar la búsqueda posteriormente sobre esa variable en lugar de hacerla sobre document. Esto permite realizar búsquedas acotadas por zonas, en lugar de realizarlo siempre sobre document, que buscará en todo el documento HTML.
+
+---
+
+
+Crear elementos en el DOM
+
+Sobre todo si te encuentras en fase de aprendizaje, lo normal suele ser crear código HTML desde un fichero HTML. Sin embargo, y sobre todo con el auge de las páginas SPA (Single Page Application*) y los frameworks Javascript, esto ha cambiado bastante y es bastante frecuente crear código HTML desde Javascript de forma dinámica.
+
+Esto tiene sus ventajas y sus desventajas. Un fichero .html siempre será más sencillo, más «estático» y más directo, ya que lo primero que analiza un navegador web es un fichero de marcado HTML. Por otro lado, un fichero .js es más complejo y menos directo, pero mucho más potente, «dinámico» y flexible, con menos limitaciones.
+
+En este artículo vamos a ver como podemos crear elementos HTML desde Javascript y aprovecharnos de la potencia de Javascript para hacer cosas que desde HTML, sin ayuda de Javascript, no podríamos realizar o costaría mucho más.
+
+
+Crear elementos HTML
+
+Existen una serie de métodos para crear de forma eficiente diferentes elementos HTML o nodos, y que nos pueden convertir en una tarea muy sencilla el crear estructuras dinámicas, mediante bucles o estructuras definidas:
+
+Elemento
+.createElement(tag, options) 	Crea y devuelve el elemento HTML definido por el string tag.
+Nodo
+.createComment(text) 	Crea y devuelve un nodo de comentarios HTML <!-- text -->.
+.createTextNode(text) 	Crea y devuelve un nodo HTML con el texto text.
+.cloneNode(deep) 	Clona el nodo HTML y devuelve una copia. deep es false por defecto.
+Booleano
+.isConnected 	Indica si el nodo HTML está insertado en el documento HTML.
+
+Para empezar, nos centraremos principalmente en la primera, que es la que utilizamos para crear elementos HTML en el DOM.
+
+El método createElement()
+
+Mediante el método .createElement() podemos crear un element HTML en memoria (¡no estará insertado aún en nuestro documento HTML!). Con dicho elemento almacenado en una variable, podremos modificar sus características o contenido, para posteriormente insertarlo en una posición determinada del DOM o documento HTML.
+
+Vamos a centrarnos en el proceso de creación del elemento, y en el próximo capítulo veremos el apartado de insertarlo en el DOM. El funcionamiento de .createElement() es muy sencillo: se trata de pasarle el nombre de la etiqueta tag a utilizar.
+
+const div = document.createElement("div");      // Creamos un <div></div>
+const span = document.createElement("span");    // Creamos un <span></span>
+const img = document.createElement("img");      // Creamos un <img>
+
+De la misma forma, podemos crear comentarios HTML con createComment() o nodos de texto sin etiqueta HTML con createTextNode(), pasándole a ambos un string con el texto en cuestión. En ambos, se devuelve un node que podremos utilizar luego para insertar en el documento HTML:
+
+const comment = document.createComment("Comentario"); // <!--Comentario-->
+const text = document.createTextNode("Hola");         // Nodo de texto: 'hola'
+
+El método createElement() tiene un parámetro opcional denominado options. Si se indica, será un objeto con una propiedad is para definir un elemento personalizado en una modalidad menos utilizada. Se verá más adelante en el apartado de Web Components.
+
+Ten presente que en los ejemplos que hemos visto estamos creando los elementos en una constante, pero de momento no están añadiéndose al documento HTML, por lo que no aparecerían visualmente. Más adelante veremos como añadirlos.
+
+El método cloneNode()
+
+Hay que tener mucho cuidado al crear y duplicar elementos HTML. Un error muy común es asignar un elemento que tenemos en otra variable, pensando que estamos creando una copia (cuando no es así):
+
+const div = document.createElement("div");
+div.textContent = "Elemento 1";
+
+const div2 = div;   // NO se está haciendo una copia
+div2.textContent = "Elemento 2";
+
+div.textContent;  // 'Elemento 2'
+
+Con esto, quizás pueda parecer que estamos duplicando un elemento para crearlo a imagen y semejanza del original. Sin embargo, lo que se hace es una referencia al elemento original, de modo que si se modifica el div2, también se modifica el elemento original. Para evitar esto, lo ideal es utilizar el método cloneNode():
+
+const div = document.createElement("div");
+div.textContent = "Elemento 1";
+
+const div2 = div.cloneNode();   // Ahora SÍ estamos clonando
+div2.textContent = "Elemento 2";
+
+div.textContent;  // 'Elemento 1'
+
+El método cloneNode(deep) acepta un parámetro booleano deep opcional, a false por defecto, para indicar el tipo de clonación que se realizará:
+
+    Si es true, clonará también sus hijos, conocido como una clonación profunda (Deep Clone).
+    Si es false, no clonará sus hijos, conocido como una clonación superficial (Shallow Clone).
+
+
+La propiedad isConnected
+
+Por último, la propiedad isConnected nos indica si el nodo en cuestión está conectado al DOM, es decir, si está insertado en el documento HTML:
+
+    Si es true, significa que el elemento está conectado al DOM.
+    Si es false, significa que el elemento no está conectado al DOM.
+
+
+Hasta ahora, hemos creado elementos que no lo están (permanecen sólo en memoria). En la seccion Insertar elementos en el DOM veremos como insertarlos en el documento HTML para que aparezca visualmente en la página.
+
+
+Atributos HTML de un elemento
+
+Hasta ahora, hemos visto como crear elementos HTML con Javascript, pero no hemos visto como modificar los atributos HTML de dichas etiquetas creadas. En general, una vez tenemos un elemento sobre el que vamos a crear algunos atributos, lo más sencillo es asignarle valores como propiedades de objetos:
+
+const div = document.createElement("div"); // <div></div>
+div.id = "page";          // <div id="page"></div>
+div.className = "data";   // <div id="page" class="data"></div>
+div.style = "color: red"; // <div id="page" class="data" style="color: red"></div>
+
+
+Sin embargo, en algunos casos esto se puede complicar (como se ve en uno de los casos del ejemplo anterior). Por ejemplo, la palabra class (para crear clases) o la palabra for (para bucles) son palabras reservadas de Javascript y no se podrían utilizar para crear atributos. Por ejemplo, si queremos establecer una clase, se debe utilizar la propiedad className.
+
+    Es posible asignar a la propiedad className varias clases en un string separadas por espacio. De esta forma se asignarán múltiples clases. Aún así, recomendamos utilizar la propiedad classList que explicaremos más adelante en el capítulo manipulación de clases CSS.
+
+https://lenguajejs.com/javascript/dom/insertar-elementos-dom/
+
+
+
+Fuente:
+https://lenguajejs.com

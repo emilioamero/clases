@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+     guardarClientes();
+      cargarClientes();
+
+      async function cargarClientes() {
+        await fetch(`http://localhost:3000/data`)
+          .then((response) => {
+            if (!response.ok) {
+              throw Error(response.status);
+            }
+            return response;
+          })
+          .then((response) => response.json()) //Respuesta Cabecera
+          .then((data) => {
+            //Respuesta Body
+
+            console.log(data);
+
+            for (let index = 0; index < data.length; index++) {
+              const element = data[index];
+              document.write(element.nombre + "<br>");
+            }
+          });
+      }
+
+      async function guardarClientes() {
+        const dato = {
+          "id": 17,
+          "nombre": "Test",
+          "apellido": "García",
+          "edad": 32,
+          "ciudad": "Buenos Aires",
+        };
+
+        await fetch(`http://localhost:3000/data`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dato),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Respuesta:", data);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    </script>
+  </body>
+</html>
