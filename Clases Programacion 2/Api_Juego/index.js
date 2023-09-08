@@ -14,6 +14,7 @@ app.use(cors());
   optionsSuccessStatus: 204,
 };
 
+
 app.use(cors(corsOptions)); */
 /* Fin Cors */
 
@@ -27,64 +28,47 @@ const FILE_NAME = "./datos/data.json";
   req body 
   variables en back */
 
-  let valores=0;
+let valores = 0;
 
-app.get("/mostrarinfo/:codigo/:nombre", (req, res) => {
-
-  const cod = req.params.codigo;
- 
+app.get("/mostrarinfo/:code/:nombre", (req, res) => {
+  const cod = req.params.code;
+  const nombre = req.params.nombre;
   valores = valores + parseInt(cod);
-
   res.json({
     materia: "Programacion 2",
     codigo: cod,
-    resultado: valores,
-    nombre: req.params.nombre
-
-
+    pamela: nombre,
+    valores: valores
   });
-
 });
 
+let jugadorActual=0;
 
-app.post("/guardarinfo/:id", (req, res) => {
+app.post("/guardarinfo", (req, res) => {
   const newData = req.body;
-  const nombre = req.body.nombre;
-  const cod = req.params.id;
 
- /*  res.json({
-    nombre,
-    cod
+ const jugador= req.body.jugador;
+ const puntaje= req.body.puntaje;
+ if (puntaje==0) {
+  jugadorActual="Perdio";
+ }else{
+  jugadorActual="Gano";
+ }
 
-  }); */
+ //jugadorActual=jugador;
 
-  res.status(200).send(`Dato Nombre: ${nombre}`);
+  res.json({
+
+    jugador,
+    jugadorActual
 
 
+  });  
+
+ // res.status(200).send(`Dato Nombre: ${nombre}`);
 });
-
 
 /* ------------------------------------------------------- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Endpoint Raiz
 app.get("/", (req, res) => {
