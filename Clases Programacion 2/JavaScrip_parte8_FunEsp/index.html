@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+  
+    <script>
+      /*-------------- Timers -------------------- */
+      let tiempo = 1000; // es milisegundos
+
+      /* setInterval Se ejecuta de forma indefinida */
+      let count = 1;
+
+      let temporizador = setInterval(() => {
+        console.log("setInterval", count);
+        count = count + 1;
+        if (count == 6) {
+          clearInterval(temporizador); //Detener despues que el contador llegue a 6
+        }
+      }, tiempo);
+
+      /* setTimeout Se ejecuta  Solo una vez despues de un tiempo determinado */
+      let temporizador2 = setTimeout(() => {
+        console.log("setTimeout");
+      }, tiempo);
+
+      /* detiene el setTimeout, aunque se ejecuta una sola vez  
+        si se recarga el objeto del DOM o la pagina se re ejecuta, por lo tanto se puede detener */
+      clearTimeout(temporizador2);
+
+      /* ----------- Numeros Random/Aletorios  -------------- */
+      console.log(Math.floor(Math.random()));
+
+      /* La siguiente funcion obtiene un numero al azar incluyendo el minimo y el maximo  */
+
+      console.log(getRandomIncluirValores(1, 5));
+
+      function getRandomIncluirValores(min, max) {
+        min = Math.floor(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+
+      //Referencia  https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+
+      
+
+    </script>
+  </body>
+</html>
