@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="objeto" style="
+        width: 50px;
+        height: 50px;
+        background-color: red;
+        position: absolute;
+        top: 0;
+        left: 0;
+      "></div>
+
+  <div id="objeto2" style="
+        width: 50px;
+        height: 50px;
+        background-color: blue;
+        position: absolute;
+        top: 0;
+        left: 0;
+      "></div>
+
+  <script>
+    // Selecciona el objeto que deseas mover
+    const objeto = document.getElementById("objeto");
+    const objeto2 = document.getElementById("objeto2");
+
+    objeto2.style.top = "100px";
+    objeto2.style.left = "200px";
+
+    // Establece las coordenadas iniciales
+    let posX = 0;
+    let posY = 0;
+
+    // Agrega un listener de eventos para las teclas
+    document.addEventListener("keydown", moverObjeto);
+
+    function moverObjeto(event) {
+      // Define la cantidad de píxeles que deseas mover el objeto en cada paso
+      const paso = 5;
+//console.log(event);
+      switch (event.key) {
+        case "ArrowUp":
+          posY -= paso;
+          break;
+        case "ArrowDown":
+          posY += paso;
+          break;
+        case "ArrowLeft":
+          posX -= paso;
+          break;
+        case "ArrowRight":
+          posX += paso;
+          break;
+      }
+
+      console.log("X", posX, "Y", posX);
+
+      if (posX >= 155) {
+        alert("Chocaste");
+        posX = 10;
+        posY = 10;
+      }
+
+      // Aplica las nuevas coordenadas al objeto
+      objeto.style.top = posY + "px";
+      objeto.style.left = posX + "px";
+    }
+  </script>
+
+
+<!--   
+  Eventos y Funciones especiales:
+
+  
+  Eventos de ratón:
+        click: Se activa cuando se hace clic en el elemento.
+        mouseover: Se activa cuando el puntero del mouse se mueve sobre el elemento.
+        mouseout: Se activa cuando el puntero del mouse sale del elemento.
+        mousedown: Se activa cuando se presiona el botón del mouse mientras se encuentra sobre el elemento.
+        mouseup: Se activa cuando se suelta el botón del mouse después de presionarlo mientras se encuentra sobre el elemento.
+
+    Eventos de teclado:
+        keydown: Se activa cuando se presiona una tecla del teclado.
+        keyup: Se activa cuando se suelta una tecla del teclado.
+        keypress: Se activa cuando se mantiene presionada una tecla del teclado.
+
+    Eventos de formulario:
+        submit: Se activa cuando se envía un formulario.
+        input: Se activa cuando el valor de un campo de entrada cambia.
+        focus: Se activa cuando un elemento obtiene el foco.
+        blur: Se activa cuando un elemento pierde el foco.
+
+    Eventos de ventana:
+        load: Se activa cuando se carga completamente una página web.
+        resize: Se activa cuando se cambia el tamaño de la ventana del navegador.
+        scroll: Se activa cuando se desplaza la página.
+
+    Eventos de tiempo:
+        setTimeout y setInterval: No son eventos en sí, pero se pueden usar para programar funciones que se ejecuten después de un tiempo específico o de forma periódica. -->
+
+</body>
+
+</html>

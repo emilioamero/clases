@@ -28,56 +28,39 @@ const FILE_NAME = "./datos/data.json";
   req body 
   variables en back */
 
-let valores = 0;
-
-app.get("/mostrarinfo/:code/:nombre", (req, res) => {
-  const cod = req.params.code;
-  const nombre = req.params.nombre;
-  valores = valores + parseInt(cod);
-  res.json({
-    materia: "Programacion 2",
-    codigo: cod,
-    pamela: nombre,
-    valores: valores
-  });
-});
-
-let jugadorActual=0;
-
-app.post("/guardarinfo", (req, res) => {
-  const newData = req.body;
-
- const jugador= req.body.jugador;
- const puntaje= req.body.puntaje;
- if (puntaje==0) {
-  jugadorActual="Perdio";
- }else{
-  jugadorActual="Gano";
- }
-
- //jugadorActual=jugador;
-
-  res.json({
-
-    jugador,
-    jugadorActual
-
-
-  });  
-
- // res.status(200).send(`Dato Nombre: ${nombre}`);
-});
-
-/* ------------------------------------------------------- */
-
 // Endpoint Raiz
 app.get("/", (req, res) => {
   res.json({
     Materia: "Programacion 2",
-    API: "ABM Personas",
+    API: "Juego",
     Status: "Servidor Funcionando",
   });
 });
+
+
+app.get("/obtenerstatus", (req, res) => {
+
+
+  let valorramdom = getRandomIncluirValores(1,100);
+
+
+  res.json({
+    API: "Juego",
+    Status: valorramdom,
+  });
+});
+
+
+/* Funciones del Juego */
+  function getRandomIncluirValores(min, max) {
+    min = Math.floor(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+/* ------------------------------------------------------- */
+
+
 
 // Endpoint para obtener los datos del archivo JSON
 app.get("/data", (req, res) => {

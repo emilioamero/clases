@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    .jugador1_clase {
+        width: 50px;
+        height: 50px;
+        /*     background-color: red; */
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .burbuja_clase {
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .imagen_jugador1 {
+        transform: scaleX(-1);
+        /* Invertir imagen para que se oriete a la derecha  */
+    }
+</style>
+
+
+<body>
+
+
+
+    <div id="objeto" class="jugador1_clase">
+        <img src="./img/johnny-automatic-raygun.svg" alt="" class="imagen_jugador1">
+    </div>
+
+
+
+
+     <div id="burbuja_objeto" class="burbuja_clase">
+             <img src="./img/burbuja.svg" alt="" class=""> 
+    </div>
+
+    
+    <div id="burbuja_objeto2" class="burbuja_clase">
+        <img src="./img/burbuja.svg" alt="" class=""> 
+</div>
+
+
+
+    <script>
+        const objeto = document.getElementById("objeto");
+        const burbuja_objeto = document.getElementById("burbuja_objeto");
+        const burbuja_objeto2 = document.getElementById("burbuja_objeto2");
+        // Establece las coordenadas iniciales
+        let posX_jugador1 = 10;
+        let posY_jugador1 = 10;
+        objeto.style.left = posX_jugador1 + "px";
+        objeto.style.top = posY_jugador1 + "px";
+
+       burbuja_objeto.hidden = true;
+       burbuja_objeto2.hidden = true;
+
+
+        // Agrega un listener de eventos para las teclas
+        document.addEventListener("keydown", moverObjeto);
+
+
+
+        let actualizaInfoServer = setInterval(() => {
+            // cargarStatus();
+        }, 500);
+
+
+        function generarBurbuja() {
+
+            burbuja_objeto.hidden = false;
+            burbuja_objeto.style.top = posY_jugador1 + "px";
+
+            let movimientoX_burbuja = 50;
+            let timer_moverburbuja = setInterval(() => {
+                movimientoX_burbuja += 5;
+                console.log(movimientoX_burbuja)
+
+                burbuja_objeto.style.left = movimientoX_burbuja + "px";
+               
+                if (movimientoX_burbuja >= 300) {
+                    //d movimientoX_burbuja = posY_jugador1 +10;
+                    burbuja_objeto.hidden = true;
+                    clearInterval(timer_moverburbuja)
+                }
+            }, 10);
+
+        }
+
+        function moverObjeto(event) {
+            // Define la cantidad de píxeles que deseas mover el objeto en cada paso
+            const paso = 5;
+
+            console.log(event);
+            switch (event.key) {
+                case "ArrowUp":
+                    posY_jugador1 -= paso;
+                    break;
+                case "ArrowDown":
+                    posY_jugador1 += paso;
+                    break;
+                case "D":
+                    generarBurbuja();
+                    break;
+                case "d":
+                    generarBurbuja();
+                    break;
+                case " ":
+                    generarBurbuja();
+                    break;
+                /*      case "ArrowLeft":
+                         posX_jugador1 -= paso;
+                         break;
+                     case "ArrowRight":
+                         posX_jugador1 += paso;
+                         break; */
+            }
+            objeto.style.top = posY_jugador1 + "px";
+            // objeto.style.left = posX_jugador1 + "px";
+        }
+
+        async function cargarStatus() {
+            //cuando no se menciona el metodo po defecto es GET
+            await fetch(`http://localhost:3000/obtenerstatus`)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw Error(response.status);
+                    }
+                    return response;
+                })
+                .then((response) => response.json()) //Respuesta Cabecera
+                .then((data) => {
+                    console.log(data);
+                });
+        }
+
+
+
+        /*    async function guardarClientes() {
+             const dato = {
+               "id": 17,
+               "nombre": "Test",
+               "apellido": "García",
+               "edad": 32,
+               "ciudad": "Buenos Aires",
+             };
+     
+             await fetch(`http://localhost:3000/data`, {
+               method: "POST",
+               headers: {
+                 "Content-Type": "application/json",
+               },
+               body: JSON.stringify(dato),
+             })
+               .then((response) => response.json())
+               .then((data) => {
+                 console.log("Respuesta:", data);
+               })
+               .catch((error) => {
+                 console.error("Error:", error);
+               });
+           }
+         */
+
+
+    </script>
+
+
+</body>
+
+</html>

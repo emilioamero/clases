@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button type="button" onClick="miFuncion()"></button>
+    <script>
+
+        /*       let i = 0;
+              let intervalo = setInterval(() => {
+                 // i ++;
+                  i += 1;
+                  if (i == 5) {
+                      clearInterval(intervalo);
+                  }
+                  document.write("Hola </br>")
+              }, 1000); */
+
+
+        /*      let tiempo = 5000;
+     
+            let time= setTimeout(() => {
+                 document.write("Hola </br>")
+             }, tiempo);
+     
+             clearTimeout(time);
+      */
+
+
+        console.log(getRandomIncluirValores(1, 5));
+
+        function getRandomIncluirValores(min, max) {
+            min = Math.floor(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+
+        let i = 0;
+        let intervalo = setInterval(() => {
+            // i ++;
+            i += 1;
+            
+          /*   if (i == 5) {
+                clearInterval(intervalo);
+            } */
+            document.write(getRandomIncluirValores(0, 100) + "</br>")
+        }, 500); 
+
+
+
+
+        function miFuncion() {
+
+        }
+    </script>
+</body>
+
+</html>
