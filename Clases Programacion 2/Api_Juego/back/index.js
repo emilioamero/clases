@@ -38,159 +38,70 @@ app.get("/", (req, res) => {
 });
 
 
-app.get("/obtenerstatus", (req, res) => {
 
+let progresojugadorrojo = 0;
+let progresojugadorazul = 0;
+let turnodel ="rojo";
 
-  let valorramdom = getRandomIncluirValores(1,100);
+app.post("/guardarprogreso", (req, res) => {
+ 
+  const jugador = req.body.jugador;
+
+  if (jugador == "rojo") {
+    turnodel="azul";
+    progresojugadorrojo = progresojugadorrojo + req.body.puntaje;
+  } else {
+    progresojugadorazul = progresojugadorazul + req.body.puntaje;
+    turnodel="rojo";
+  }
 
 
   res.json({
-    API: "Juego",
-    Status: valorramdom,
+    mensajeservidor: "Datos Guardados",
+    turno:turnodel
+  });
+
+
+  
+});
+
+app.get("/reset", (req, res) => {
+
+  
+ progresojugadorrojo = 0;
+ progresojugadorazul = 0;
+ turnodel ="rojo";
+
+  res.json({
+    mensajeservidor: "Reset variables",
   });
 });
 
 
-/* Funciones del Juego */
-  function getRandomIncluirValores(min, max) {
-    min = Math.floor(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
+app.get("/obtenerstatus", (req, res) => {
 
-/* ------------------------------------------------------- */
-
-
-
-// Endpoint para obtener los datos del archivo JSON
-app.get("/data", (req, res) => {
-  fs.readFile(FILE_NAME, (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Error al leer el archivo");
-      return;
-    }
-
-    const jsonData = JSON.parse(data);
-    res.json(jsonData);
+  res.json({
+    progresojugadorrojo: progresojugadorrojo,
+    progresojugadorazul: progresojugadorazul,
+    turnodel:turnodel
   });
 });
 
-// Endpoint para obtener un objeto en el archivo JSON por ID
-app.get("/data/:id", (req, res) => {
-  const id = req.params.id;
 
-  fs.readFile(FILE_NAME, (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Error al leer el archivo");
-      return;
-    }
 
-    const jsonData = JSON.parse(data);
-    const result = jsonData.find((obj) => obj.id === parseInt(id));
 
-    if (!result) {
-      res.status(404).send("Objeto no encontrado");
-      return;
-    }
+/* Funciones del Juego 
+function getRandomIncluirValores(min, max) {
+  min = Math.floor(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}*/
 
-    res.send(result);
-  });
-});
+/* ------------------------------------------------------------------------------------------- */
 
-// Endpoint para guardar los datos en el archivo JSON
-app.post("/data", (req, res) => {
-  const newData = req.body;
 
-  fs.readFile(FILE_NAME, (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Error al leer el archivo");
-      return;
-    }
 
-    const jsonData = JSON.parse(data);
-    jsonData.push(newData);
 
-    fs.writeFile(FILE_NAME, JSON.stringify(jsonData), (err) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send("Error al escribir en el archivo");
-        return;
-      }
-
-      res.status(200).send("Datos guardados correctamente");
-    });
-  });
-});
-
-// Endpoint para actualizar un objeto en el archivo JSON
-app.put("/data/:id", (req, res) => {
-  const id = req.params.id;
-  const updatedData = req.body;
-
-  fs.readFile(FILE_NAME, (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Error al leer el archivo");
-      return;
-    }
-
-    const jsonData = JSON.parse(data);
-    const index = jsonData.findIndex((obj) => obj.id === parseInt(id));
-
-    if (index === -1) {
-      res.status(404).send("Objeto no encontrado");
-      return;
-    }
-
-    jsonData[index] = { ...jsonData[index], ...updatedData };
-
-    fs.writeFile(FILE_NAME, JSON.stringify(jsonData), (err) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send("Error al escribir en el archivo");
-        return;
-      }
-
-      res.send("Objeto actualizado correctamente");
-    });
-  });
-});
-
-// Endpoint para eliminar un objeto en el archivo JSON
-app.delete("/data/:id", (req, res) => {
-  const id = req.params.id;
-
-  fs.readFile(FILE_NAME, (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Error al leer el archivo");
-      return;
-    }
-
-    const jsonData = JSON.parse(data);
-    const index = jsonData.findIndex((obj) => obj.id === parseInt(id));
-
-    if (index === -1) {
-      res.status(404).send("Objeto no encontrado");
-      return;
-    }
-
-    jsonData.splice(index, 1);
-
-    fs.writeFile(FILE_NAME, JSON.stringify(jsonData), (err) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send("Error al escribir en el archivo");
-        return;
-      }
-
-      res.send("Objeto eliminado correctamente");
-    });
-  });
-});
 
 app.listen(3000, () => {
   console.log("Servidor iniciado en el puerto 3000");

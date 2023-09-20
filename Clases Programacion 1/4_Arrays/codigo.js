@@ -1,4 +1,4 @@
-let valor = 10;
+//let valor = 10;
 //document.write(valor);
 
 //let frutas= ["Banana", "Cereza", "Tomate", "Manzana", "Pera"];
@@ -12,7 +12,7 @@ frutas.push("Manzana Verde");
 
 document.write(frutas); */
 
-let arr = [];
+//let arr = [];
 
 //let agregarFruta = prompt("Ingrese una Fruta");
 /* 
@@ -26,8 +26,8 @@ let arr = [];
  document.write(arr  + "</br>"); */
 
 //document.write("<h1>Emilio</h1>")
-arr = ["Banana", "Cereza", "Tomate", "Manzana", "Pera"];
-document.write(arr + "</br>");
+
+/* document.write(arr + "</br>");
 
 arr.pop(); //Quitar el ultimo elemento
 
@@ -47,10 +47,27 @@ arr.pop();
 arr.pop();
 
 document.write(arr + "</br>");
-document.write(arr.length + "</br>");
+document.write(arr.length + "</br>" */
 
 //crear un array con una frase, donde cada palabra sea un elemento del array.
 
 /*  let frase =["Hola", "como", "estas"];
 
 document.write(frase) */
+
+let frutas =["Banana", "Cereza", "Tomate", "Manzana", "Pera"];
+
+
+/* 
+frutas.push("Kiwi");
+frutas.shift(); */
+//frutas.pop();
+//let frutas2= frutas.sort();
+//frutas.unshift("Sandía");
+
+frutas.shift("Cereza");
+document.write(frutas);
+document.write(frutas.length);
+
+
+

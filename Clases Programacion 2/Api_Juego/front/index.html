@@ -4,132 +4,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<style>
-    .jugador1_clase {
-        width: 50px;
-        height: 50px;
-        /*     background-color: red; */
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    .burbuja_clase {
-        width: 10px;
-        height: 10px;
-        background-color: red;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-
-    .imagen_jugador1 {
-        transform: scaleX(-1);
-        /* Invertir imagen para que se oriete a la derecha  */
-    }
-</style>
-
-
-<body>
-
-
-
-    <div id="objeto" class="jugador1_clase">
-        <img src="./img/johnny-automatic-raygun.svg" alt="" class="imagen_jugador1">
-    </div>
-
-
-
-
-     <div id="burbuja_objeto" class="burbuja_clase">
-             <img src="./img/burbuja.svg" alt="" class=""> 
-    </div>
-
-    
-    <div id="burbuja_objeto2" class="burbuja_clase">
-        <img src="./img/burbuja.svg" alt="" class=""> 
-</div>
-
-
-
-    <script>
-        const objeto = document.getElementById("objeto");
-        const burbuja_objeto = document.getElementById("burbuja_objeto");
-        const burbuja_objeto2 = document.getElementById("burbuja_objeto2");
-        // Establece las coordenadas iniciales
-        let posX_jugador1 = 10;
-        let posY_jugador1 = 10;
-        objeto.style.left = posX_jugador1 + "px";
-        objeto.style.top = posY_jugador1 + "px";
-
-       burbuja_objeto.hidden = true;
-       burbuja_objeto2.hidden = true;
-
-
-        // Agrega un listener de eventos para las teclas
-        document.addEventListener("keydown", moverObjeto);
-
-
-
-        let actualizaInfoServer = setInterval(() => {
-            // cargarStatus();
-        }, 500);
-
-
-        function generarBurbuja() {
-
-            burbuja_objeto.hidden = false;
-            burbuja_objeto.style.top = posY_jugador1 + "px";
-
-            let movimientoX_burbuja = 50;
-            let timer_moverburbuja = setInterval(() => {
-                movimientoX_burbuja += 5;
-                console.log(movimientoX_burbuja)
-
-                burbuja_objeto.style.left = movimientoX_burbuja + "px";
-               
-                if (movimientoX_burbuja >= 300) {
-                    //d movimientoX_burbuja = posY_jugador1 +10;
-                    burbuja_objeto.hidden = true;
-                    clearInterval(timer_moverburbuja)
-                }
-            }, 10);
-
+    <title>Carrera de Caballos</title>
+    <!--     <link rel="stylesheet" href="styles.css"> -->
+    <script src="./codigo/funcionesGenerales.js" defer></script>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
         }
 
-        function moverObjeto(event) {
-            // Define la cantidad de píxeles que deseas mover el objeto en cada paso
-            const paso = 5;
+        h1 {
+            color: #333;
+        }
 
-            console.log(event);
-            switch (event.key) {
-                case "ArrowUp":
-                    posY_jugador1 -= paso;
-                    break;
-                case "ArrowDown":
-                    posY_jugador1 += paso;
-                    break;
-                case "D":
-                    generarBurbuja();
-                    break;
-                case "d":
-                    generarBurbuja();
-                    break;
-                case " ":
-                    generarBurbuja();
-                    break;
-                /*      case "ArrowLeft":
-                         posX_jugador1 -= paso;
-                         break;
-                     case "ArrowRight":
-                         posX_jugador1 += paso;
-                         break; */
+        button {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 10px;
+            /*    cursor: pointer; */
+        }
+
+        .track {
+            width: 80%;
+            margin: 0 auto;
+            background-color: #ddd;
+            padding: 10px;
+            position: relative;
+        }
+
+        .horse {
+            width: 50px;
+            height: 50px;
+            background-color: #f00;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #horse2 {
+            background-color: #00f;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .buttonclassazul {
+            color: blue;
+        }
+
+        .buttonclassrojo {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Carrera de Caballos</h2>
+    <label><!-- Si el valor del dado es PAR podes adelantar tu caballo o atrazar el del adversario en 2 unidades. Si el valor
+        es
+        Impar, podes igualar tu posicion. --> </label>
+    <!--     <button onclick="startRace()">Carrera Automatica</button> -->
+
+    <button id="btn_horsered" onclick="seleccionJugador('rojo')">Caballo Rojo</button>
+    <button id="btn_horseazul" onclick="seleccionJugador('azul')">Caballo Azul</button>
+    <button id="btn_dado" onclick="lanzarDado()">Dado - </button>
+    <!--  <button onclick="startRace()">Caballo Azul</button> -->
+
+    <div id="valor_dado"></div>
+    <div class="track">
+        <div class="horse" id="horse1"></div>
+        <div class="horse" id="horse2"></div>
+
+    </div>
+
+    <div id="result"></div>
+    <script>
+        "use strict"
+
+        let soyCaballoRojo = false;
+        let soyCaballoAzul = false;
+        let colorenletras = "";
+        let cantidadDepxeles = 10;
+
+        const horse1 = document.getElementById('horse1');
+        const horse2 = document.getElementById('horse2');
+        const valor_dado = document.getElementById('valor_dado');
+        const btn_horsered = document.getElementById('btn_horsered');
+        const btn_horseazul = document.getElementById('btn_horseazul');
+        const btn_dado = document.getElementById('btn_dado');
+
+        /* Por defecto */
+        horse1.style.left = 0 + "px";
+        btn_dado.hidden = true;
+
+
+
+        function seleccionJugador(color) {
+            if (color == "rojo") {
+                //ves estadisticas del azul porque soy rojo
+                btn_horseazul.hidden = true;
+                btn_horsered.hidden = true;
+                btn_dado.hidden = false;
+                soyCaballoRojo = true;
+                btn_dado.classList = "buttonclassrojo";
+                colorenletras = "Caballo Rojo";
+            } else {
+                btn_horseazul.hidden = true;
+                btn_horsered.hidden = true;
+                btn_dado.hidden = false;
+                soyCaballoAzul = true;
+                btn_dado.classList = "buttonclassazul";
+                colorenletras = "Caballo Azul";
             }
-            objeto.style.top = posY_jugador1 + "px";
-            // objeto.style.left = posX_jugador1 + "px";
+            comenzarReloj();
+            btn_dado.innerHTML = `Dado ${colorenletras}`;
+        }
+
+        let horsePosition = 0;
+        function lanzarDado() {
+
+            let valorDado = getRandomIncluirValores(1, 6);
+            btn_dado.innerHTML = `Dado ${colorenletras}: ${valorDado}`;
+            horsePosition = parseInt(horsePosition) + valorDado;
+
+            if (soyCaballoRojo) {
+                horse1.style.left = horsePosition * cantidadDepxeles + 'px';
+            } else {
+                horse2.style.left = horsePosition * cantidadDepxeles + 'px';
+            }
+            guardarProgreso(horsePosition);
+        }
+
+        async function guardarProgreso(horsePosition) {
+
+            let dato = {};
+            if (soyCaballoRojo) {
+                dato = {
+                    "jugador": "rojo",
+                    "puntaje": horsePosition
+                };
+            } else {
+                dato = {
+                    "jugador": "azul",
+                    "puntaje": horsePosition
+                };
+            }
+
+            await fetch(`http://localhost:3000/guardarprogreso`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(dato),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Respuesta:", data);
+
+                    if (data.turno == "rojo") {
+                        btn_dado.innerHTML = `Turno del Caballo Rojo`;
+                    } else {
+                        btn_dado.innerHTML = `Turno del Caballo Azul`;
+                    }
+                    btn_dado.disabled = true;
+
+                })
+                .catch((error) => {
+                    //  console.error("Error:", error);
+                });
+        }
+
+        function comenzarReloj() {
+            let actualizaInfoServer = setInterval(() => {
+                cargarStatus();
+            }, 500);
         }
 
         async function cargarStatus() {
@@ -144,41 +194,34 @@
                 .then((response) => response.json()) //Respuesta Cabecera
                 .then((data) => {
                     console.log(data);
+                    btn_dado.disabled = true;
+                    if (data.turnodel == "rojo") {
+                        btn_dado.innerHTML = `Turno del Caballo Rojo .`;
+                        horse2.style.left = data.progresojugadorazul * cantidadDepxeles + 'px';
+
+                        if (soyCaballoRojo) {
+                            btn_dado.disabled = false;
+                        } else {
+                            btn_dado.disabled = true;
+                        }
+                    }
+                    if (data.turnodel == "azul") {
+                        btn_dado.innerHTML = `Turno del Caballo Azul .`;
+                        horse1.style.left = data.progresojugadorrojo * cantidadDepxeles + 'px';
+
+                        if (soyCaballoAzul) {
+                            btn_dado.disabled = false;
+                        } else {
+                            btn_dado.disabled = true;
+                        }
+
+                    }
                 });
-        }
+        } 
 
-
-
-        /*    async function guardarClientes() {
-             const dato = {
-               "id": 17,
-               "nombre": "Test",
-               "apellido": "García",
-               "edad": 32,
-               "ciudad": "Buenos Aires",
-             };
-     
-             await fetch(`http://localhost:3000/data`, {
-               method: "POST",
-               headers: {
-                 "Content-Type": "application/json",
-               },
-               body: JSON.stringify(dato),
-             })
-               .then((response) => response.json())
-               .then((data) => {
-                 console.log("Respuesta:", data);
-               })
-               .catch((error) => {
-                 console.error("Error:", error);
-               });
-           }
-         */
 
 
     </script>
-
-
 </body>
 
 </html>
