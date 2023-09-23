@@ -5,223 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrera de Caballos</title>
-    <!--     <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="./estilos/estilos.css">
     <script src="./codigo/funcionesGenerales.js" defer></script>
-    <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
+    <script src="./codigo/codigoPrincipal.js" defer></script>
 
-        h1 {
-            color: #333;
-        }
-
-        button {
-            margin: 20px;
-            padding: 10px 20px;
-            font-size: 10px;
-            /*    cursor: pointer; */
-        }
-
-        .track {
-            width: 80%;
-            margin: 0 auto;
-            background-color: #ddd;
-            padding: 10px;
-            position: relative;
-        }
-
-        .horse {
-            width: 50px;
-            height: 50px;
-            background-color: #f00;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        #horse2 {
-            background-color: #00f;
-        }
-
-        #result {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        .buttonclassazul {
-            color: blue;
-        }
-
-        .buttonclassrojo {
-            color: red;
-        }
-    </style>
 </head>
 
 <body>
     <h2>Carrera de Caballos</h2>
-    <label><!-- Si el valor del dado es PAR podes adelantar tu caballo o atrazar el del adversario en 2 unidades. Si el valor
-        es
-        Impar, podes igualar tu posicion. --> </label>
+    <div>
+        <label id="label_jugador">-</label>
+    </div>
+
+
+
     <!--     <button onclick="startRace()">Carrera Automatica</button> -->
 
     <button id="btn_horsered" onclick="seleccionJugador('rojo')">Caballo Rojo</button>
     <button id="btn_horseazul" onclick="seleccionJugador('azul')">Caballo Azul</button>
     <button id="btn_dado" onclick="lanzarDado()">Dado - </button>
+    <button id="btn_reset" onclick="reset()">Reset</button>
     <!--  <button onclick="startRace()">Caballo Azul</button> -->
 
-    <div id="valor_dado"></div>
+    <div id="valor_dado">-</div>
     <div class="track">
         <div class="horse" id="horse1"></div>
         <div class="horse" id="horse2"></div>
 
     </div>
+<br><br>
+    <div>
+        <label id="label_jugadorrojopuntaje" class="labelclassrojo">Puntaje</label>
+        <label id="label_jugadorazulpuntaje" class="labelclassazul">Puntaje</label>
+    </div>
 
     <div id="result"></div>
-    <script>
-        "use strict"
 
-        let soyCaballoRojo = false;
-        let soyCaballoAzul = false;
-        let colorenletras = "";
-        let cantidadDepxeles = 10;
-
-        const horse1 = document.getElementById('horse1');
-        const horse2 = document.getElementById('horse2');
-        const valor_dado = document.getElementById('valor_dado');
-        const btn_horsered = document.getElementById('btn_horsered');
-        const btn_horseazul = document.getElementById('btn_horseazul');
-        const btn_dado = document.getElementById('btn_dado');
-
-        /* Por defecto */
-        horse1.style.left = 0 + "px";
-        btn_dado.hidden = true;
-
-
-
-        function seleccionJugador(color) {
-            if (color == "rojo") {
-                //ves estadisticas del azul porque soy rojo
-                btn_horseazul.hidden = true;
-                btn_horsered.hidden = true;
-                btn_dado.hidden = false;
-                soyCaballoRojo = true;
-                btn_dado.classList = "buttonclassrojo";
-                colorenletras = "Caballo Rojo";
-            } else {
-                btn_horseazul.hidden = true;
-                btn_horsered.hidden = true;
-                btn_dado.hidden = false;
-                soyCaballoAzul = true;
-                btn_dado.classList = "buttonclassazul";
-                colorenletras = "Caballo Azul";
-            }
-            comenzarReloj();
-            btn_dado.innerHTML = `Dado ${colorenletras}`;
-        }
-
-        let horsePosition = 0;
-        function lanzarDado() {
-
-            let valorDado = getRandomIncluirValores(1, 6);
-            btn_dado.innerHTML = `Dado ${colorenletras}: ${valorDado}`;
-            horsePosition = parseInt(horsePosition) + valorDado;
-
-            if (soyCaballoRojo) {
-                horse1.style.left = horsePosition * cantidadDepxeles + 'px';
-            } else {
-                horse2.style.left = horsePosition * cantidadDepxeles + 'px';
-            }
-            guardarProgreso(horsePosition);
-        }
-
-        async function guardarProgreso(horsePosition) {
-
-            let dato = {};
-            if (soyCaballoRojo) {
-                dato = {
-                    "jugador": "rojo",
-                    "puntaje": horsePosition
-                };
-            } else {
-                dato = {
-                    "jugador": "azul",
-                    "puntaje": horsePosition
-                };
-            }
-
-            await fetch(`http://localhost:3000/guardarprogreso`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(dato),
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log("Respuesta:", data);
-
-                    if (data.turno == "rojo") {
-                        btn_dado.innerHTML = `Turno del Caballo Rojo`;
-                    } else {
-                        btn_dado.innerHTML = `Turno del Caballo Azul`;
-                    }
-                    btn_dado.disabled = true;
-
-                })
-                .catch((error) => {
-                    //  console.error("Error:", error);
-                });
-        }
-
-        function comenzarReloj() {
-            let actualizaInfoServer = setInterval(() => {
-                cargarStatus();
-            }, 500);
-        }
-
-        async function cargarStatus() {
-            //cuando no se menciona el metodo po defecto es GET
-            await fetch(`http://localhost:3000/obtenerstatus`)
-                .then((response) => {
-                    if (!response.ok) {
-                        throw Error(response.status);
-                    }
-                    return response;
-                })
-                .then((response) => response.json()) //Respuesta Cabecera
-                .then((data) => {
-                    console.log(data);
-                    btn_dado.disabled = true;
-                    if (data.turnodel == "rojo") {
-                        btn_dado.innerHTML = `Turno del Caballo Rojo .`;
-                        horse2.style.left = data.progresojugadorazul * cantidadDepxeles + 'px';
-
-                        if (soyCaballoRojo) {
-                            btn_dado.disabled = false;
-                        } else {
-                            btn_dado.disabled = true;
-                        }
-                    }
-                    if (data.turnodel == "azul") {
-                        btn_dado.innerHTML = `Turno del Caballo Azul .`;
-                        horse1.style.left = data.progresojugadorrojo * cantidadDepxeles + 'px';
-
-                        if (soyCaballoAzul) {
-                            btn_dado.disabled = false;
-                        } else {
-                            btn_dado.disabled = true;
-                        }
-
-                    }
-                });
-        } 
-
-
-
-    </script>
+ 
 </body>
 
 </html>

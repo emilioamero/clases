@@ -41,36 +41,36 @@ app.get("/", (req, res) => {
 
 let progresojugadorrojo = 0;
 let progresojugadorazul = 0;
-let turnodel ="rojo";
+let turnodel = "rojo";
 
-app.post("/guardarprogreso", (req, res) => {
- 
+app.post("/guardarprogreso", (req, respuesta) => {
+
   const jugador = req.body.jugador;
 
   if (jugador == "rojo") {
-    turnodel="azul";
-    progresojugadorrojo = progresojugadorrojo + req.body.puntaje;
+    turnodel = "azul";
+    progresojugadorrojo = req.body.puntaje;
   } else {
-    progresojugadorazul = progresojugadorazul + req.body.puntaje;
-    turnodel="rojo";
+    progresojugadorazul = req.body.puntaje;
+    turnodel = "rojo";
   }
 
 
-  res.json({
+  respuesta.json({
     mensajeservidor: "Datos Guardados",
-    turno:turnodel
+    turno: turnodel
   });
 
 
-  
+
 });
 
 app.get("/reset", (req, res) => {
 
-  
- progresojugadorrojo = 0;
- progresojugadorazul = 0;
- turnodel ="rojo";
+
+  progresojugadorrojo = 0
+  progresojugadorazul = 0;
+  turnodel = "rojo";
 
   res.json({
     mensajeservidor: "Reset variables",
@@ -83,7 +83,7 @@ app.get("/obtenerstatus", (req, res) => {
   res.json({
     progresojugadorrojo: progresojugadorrojo,
     progresojugadorazul: progresojugadorazul,
-    turnodel:turnodel
+    turnodel: turnodel
   });
 });
 

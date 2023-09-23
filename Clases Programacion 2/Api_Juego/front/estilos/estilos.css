@@ -1,0 +1,60 @@
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+
+
+
+h1 {
+    color: #333;
+}
+
+button {
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 10px;
+    /*    cursor: pointer; */
+}
+
+.track {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #ddd;
+    padding: 10px;
+    position: relative;
+}
+
+.horse {
+    width: 14px;
+    height: 50px;
+    background-color: #f00;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#horse2 {
+    background-color: #00f;
+}
+
+#result {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.buttonclassazul {
+    color: blue;
+}
+
+.buttonclassrojo {
+    color: red;
+}
+
+.labelclassazul {
+    color: blue;
+}
+
+.labelclassrojo {
+    color: red;
+}

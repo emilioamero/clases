@@ -5,6 +5,23 @@ function getRandomIncluirValores(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+async function resetVariablesServidor() {
+    //cuando no se menciona el metodo po defecto es GET
+    await fetch(`http://localhost:3000/reset`)
+        .then((response) => {
+            if (!response.ok) {
+                throw Error(response.status);
+            }
+            return response;
+        })
+        .then((response) => response.json()) //Respuesta Cabecera
+        .then((data) => {
+            console.log(data);
+         
+        });
+}
+
+
 
 
 
