@@ -55,6 +55,7 @@ app.post("/guardarprogreso", (req, respuesta) => {
     turnodel = "rojo";
   }
 
+  
 
   respuesta.json({
     mensajeservidor: "Datos Guardados",
@@ -66,6 +67,9 @@ app.post("/guardarprogreso", (req, respuesta) => {
 });
 
 app.get("/reset", (req, res) => {
+
+
+
 
 
   progresojugadorrojo = 0
