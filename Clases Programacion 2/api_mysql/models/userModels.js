@@ -1,4 +1,4 @@
-// models/userModel.js
+/* Modelo - Base de datos */
 const db = require('../database');
 
 // Ejemplo de método para obtener todos los usuarios desde la base de datos

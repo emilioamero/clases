@@ -1,0 +1,26 @@
+post 
+http://localhost:3000/api/users
+
+{
+  "nombre": "Juan",
+  "email": "juan@example.com"
+}
+
+get todos
+http://localhost:3000/api/users
+
+
+get solo uno 
+http://localhost:3000/api/users/:id
+
+
+
+
+-----------Crear Tabla usuarios------------------
+
+CREATE TABLE `usuario` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) DEFAULT NULL,
+  `email` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 
