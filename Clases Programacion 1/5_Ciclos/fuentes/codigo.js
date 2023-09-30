@@ -11,7 +11,7 @@ for (let index = 10; index <=Number(cantidadveces); index++ ) {
 }
   */
 
-let nombresdeperro = ["Tobi", "India", "Cali", "Beba", "Pelusa", "Atila", "Sal", "Pimienta"]
+///let nombresdeperro = ["Tobi", "India", "Cali", "Beba", "Pelusa", "Atila", "Sal", "Pimienta"]
 
 /* document.write(nombresdeperro + "</br>");
 document.write(nombresdeperro[2]); */
@@ -56,3 +56,19 @@ document.write(nombresdeperro[2]); */
     document.write(elemento + "</br>");
 });
   */
+
+
+let numerosamultiplicar= [0,1,2,3,4,5,6,7,8,9,10];
+
+let numeroingresado= prompt("Ingrese Numero a Multiplicar");
+
+
+for (let indice = 0; indice < numerosamultiplicar.length; indice++) {
+   
+    document.write(numerosamultiplicar[indice] +" x "+ 
+    numeroingresado +" = "+ numerosamultiplicar[indice] * 
+    parseInt(numeroingresado) + "<br>" )
+
+
+}
+
