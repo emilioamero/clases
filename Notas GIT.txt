@@ -10,6 +10,12 @@ D:\Clases>git push -u origin main
 
 
 
+------------Descargar -----------------------
+git reset --hard
+
+git clean -fd
+
+git pull
 
 
 
