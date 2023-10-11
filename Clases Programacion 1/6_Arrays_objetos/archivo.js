@@ -74,8 +74,73 @@ let arraydearrays =
  */
 
 
-function alertafuncion(){
-    let x= prompt("Ingrese Numero");
-    let y= prompt("Ingrese Numero");
-    alert(Number(x)+Number(y));
+function alertafuncion() {
+    let x = prompt("Ingrese Numero");
+    let y = prompt("Ingrese Numero");
+    alert(Number(x) + Number(y));
+}
+
+/* let animal = "gato";
+
+function funcionEjercicio1() {
+    let animal = "perro";
+    document.write(animal.toUpperCase()) //Convierte mayusculas
+    document.write(animal.toLowerCase()) //Convierte a minusculas
+} */
+
+function funcionEjercicio2() {
+    let animales = [
+        'perro',
+        'gato',
+        'elefante',
+        'jirafa',
+        'tigre',
+        'oso',
+        'conejo',
+        'león',
+        'cebra',
+        'mono'
+    ];
+
+    for (let index = 0; index < animales.length; index++) {
+
+        let animalseleccionado = animales[index];
+
+        if (animalseleccionado[animalseleccionado.length - 1] == "a") {
+            document.write("La " + animales[index] + "<br>")
+        } else { //el n o
+
+            document.write("El " + animales[index] + "<br>")
+        }
+
+    }
+
+}
+
+
+function funcionEjercicio3() {
+    let listaDeCompras = ['manzanas', 'pan', 'leche', 'huevos', 'arroz', 'pollo', 'papas', 'zanahorias',
+        'cebollas', 'pasta'];
+
+
+
+
+    let articulo = prompt("Ingrese Valor");
+    //let articulo2 = prompt("Ingrese Valor");
+
+    let indice = listaDeCompras.findIndex((x) => x == articulo);
+    document.write(indice);
+
+    /*   if (listaDeCompras.includes(articulo) == true) {
+          alert("El articulo existe")
+      } else {
+          //agrego a la lista push
+          listaDeCompras.push(articulo);
+          listaDeCompras.push(articulo2);
+          document.write(listaDeCompras)
+      }
+   */
+
+
+
 }

@@ -1,0 +1,4 @@
+
+
+    document.write(animal.toUpperCase()) //Convierte mayusculas
+    document.write(animal.toLowerCase()) //Convierte a minusculas
