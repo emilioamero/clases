@@ -5,14 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="codigo.js" defer></script>
+
+    <style>
+        div {
+            border: 10px dotted rgb(28, 176, 115);
+        }
+    </style>
+
 </head>
 
 <body>
 
+    <div style="border: 1px;" id="contenedor">
+        <h1>Titulo Grande</h1>
+    </div>
+    <div id="contenedor2">
+
+    </div>
 
 
 
+
+
+
+    <button>Iniciar</button>
+
+    <button onclick="cambioColorAzul()">
+        Color Azul
+    </button>
+    <button onclick="cambioColorRojo()">
+        Color Rojo
+    </button>
+
+    <label for="">Usuario</label>
+    <input type="text" name="usuario" id="usuario">
+
+    <label for="">Contraseña</label>
+    <input type="password" name="contra" id="contra">
+
+
+    <button onclick="obtenerUsuario()">Ingresar</button>
+
+    <script src="codigo.js"></script>
 </body>
 
 </html>

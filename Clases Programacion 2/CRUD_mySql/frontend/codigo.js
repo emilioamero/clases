@@ -153,6 +153,7 @@ function obtenerUsuario() {
         .then(function (response) {
 
             console.log(response.data)
+            //console.log(response.data)
 
             // Obtener el contenedor de la tabla
             const tablaContainer = document.getElementById('tabla-container');

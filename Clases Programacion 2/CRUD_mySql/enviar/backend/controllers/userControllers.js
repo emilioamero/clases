@@ -42,7 +42,7 @@ const getUserById = async (req, res) => {
     const userId = req.params.id;
     const user = await userModel.getUserById(userId);
     if (!user) {
-      return res.status(404).json({ message: 'Usuario no encontrado.' });
+      return res.status(404).json({ message: 'Usuario no encontrado HOLA.' });
     }
     res.json(user);
   } catch (err) {

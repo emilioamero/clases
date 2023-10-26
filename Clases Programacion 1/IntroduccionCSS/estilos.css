@@ -1,0 +1,26 @@
+h1 {
+    /*     forma de color 1 */
+    color: rgb(80, 15, 250);
+    /*     forma de color solido */
+    color:red;
+    /* Forma Hexadecimal */
+    color: #f9c908;
+}
+
+
+/* div {
+    background-color: blue;
+} */
+
+.estilocontenedor{
+    border: red 1px solid;
+}
+
+
+.estilocontenedor{
+    border: red 1px solid;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    text-align: center;
+}

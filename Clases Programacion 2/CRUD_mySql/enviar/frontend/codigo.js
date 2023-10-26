@@ -132,7 +132,7 @@ function obtenerUsuarioSoloUno() {
 
     console.log(apiUrl);
 
-    axios.get(`${apiUrl}`)
+    axios.get(`${apiUrl}/${postId}`)
     .then(function (response) {
         // La respuesta de la API se encuentra en 'response.data'
         const post = response.data;

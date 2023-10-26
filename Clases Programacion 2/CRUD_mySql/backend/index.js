@@ -12,7 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Rutas
 const userRoutes = require('./routes/userRoutes');
+const vehiculoRoutes = require('./routes/vehiculoRoutes');
 app.use('/api/users', userRoutes);
+app.use('/api/vehiculo', vehiculoRoutes);
 
 // Puerto para escuchar las peticiones
 const port = 3000;
