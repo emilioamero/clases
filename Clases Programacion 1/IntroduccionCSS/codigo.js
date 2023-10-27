@@ -54,17 +54,10 @@ let timer = setInterval(() => {
 
 
     }
-
-
-
-
-
-
-
     if (contador == 1000) {
         clearInterval(timer);
     }
-}, 250);
+}, 1000); //velocidad en milisegundos
 
 /* 
 setTimeout(() => {
