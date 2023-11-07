@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="codigo.js" defer></script>
+</head>
+
+<body>
+    <h1>TP Programación 1 - Semáforo</h1>
+    <h5>Emilio Amero</h5>
+
+    <div class="posicion_semaforo" id="">
+        <h5>Semáforo 1</h5>
+        <div class="disenio_semaforo_luz" id="semaforo1_luz_roja"></div>
+        <div class="disenio_semaforo_luz" id="semaforo1_luz_amarilla"></div>
+        <div class="disenio_semaforo_luz" id="semaforo1_luz_verde"></div>
+    </div>
+
+    <div class="posicion_semaforo" id="">
+        <h5>Semáforo 2</h5>
+        <div class="disenio_semaforo_luz" id="semaforo2_luz_roja"></div>
+        <div class="disenio_semaforo_luz" id="semaforo2_luz_amarilla"></div>
+        <div class="disenio_semaforo_luz" id="semaforo2_luz_verde"></div>
+    </div>
+    <br>
+
+    <div class="cuadro_botones">
+        <button onclick="cambiarSemaforo()">Cambiar Semáforos Manual</button>
+    </div>
+<br>
+    <div class="cuadro_botones">
+        <button onclick="cambiarSemaforoAutomatico()">Cambiar Semáforos Automáticamente</button>
+        <button onclick="detenerSemaforoAutomatico()">Detener Semáforos Automático</button>
+    </div>
+<br>
+    <div class="cuadro_botones">
+        <button onclick="cambiarSemaforoIntermitentes()">Activar Semáforos Intermitente</button>
+        <button onclick="detenerSemaforoIntermitentes()">Detener Semáforos Intermitente</button>
+    </div>
+</body>
+
+</html>

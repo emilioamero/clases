@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones</title>
+    <script src="codigo.js"></script>
+</head>
+
+<body>
+
+    <script>
+
+        let numero = 10.3525555555;
+
+        //document.write(numero.toFixed(0));
+        //let ValorIngresado = prompt("Ingresar Numero Maximo")
+        let valor = obtenerNumeroAletorio(1,90);
+        document.write(valor);
+        //return Math.floor(Math.random() * max);
+
+
+        function obtenerNumeroAletorio(min, max) {
+            return Math.floor((Math.random() * (max - min + 1)) + min);
+        }
+
+    </script>
+
+</body>
+
+</html>
