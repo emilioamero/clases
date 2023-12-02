@@ -22,7 +22,7 @@ const getAllPedidosPorLocalidad= async (idLocalidad) => {
     inner join estadopedido e on p.idEstado  = e.idEstado
     where p.idLocalidad = ? `;
     const [rows] = await db.query(query, [idLocalidad]);
-    return rows[0];
+    return rows;
 
   } catch (err) {
     throw err;
